@@ -1,5 +1,3 @@
-// script.js
-
 function validateJSON() {
     const jsonInput = document.getElementById('jsonInput').value;
     const output = document.getElementById('output');
@@ -9,12 +7,12 @@ function validateJSON() {
         // Try to parse the JSON
         JSON.parse(jsonInput);
         output.innerHTML = "Valid JSON!";
-        output.style.color = "green";
+        output.className = "success"; // Add success class
         beautifiedOutput.innerHTML = "";
     } catch (error) {
         // If error, show the error message
         output.innerHTML = `Invalid JSON: ${error.message}`;
-        output.style.color = "red";
+        output.className = "error"; // Add error class
         beautifiedOutput.innerHTML = "";
     }
 }
@@ -30,11 +28,11 @@ function beautifyJSON() {
         const beautifiedJSON = JSON.stringify(parsedJSON, null, 4);
         beautifiedOutput.innerHTML = beautifiedJSON;
         output.innerHTML = "JSON beautified successfully!";
-        output.style.color = "green";
+        output.className = "success"; // Add success class
     } catch (error) {
         // If error, show the error message
         output.innerHTML = `Invalid JSON: ${error.message}`;
-        output.style.color = "red";
+        output.className = "error"; // Add error class
         beautifiedOutput.innerHTML = "";
     }
 }
