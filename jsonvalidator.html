@@ -56,13 +56,23 @@
 
         .copy-button {
             background-color: #007bff;
+            color: white;
+            font-size: 12px;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border: none;
         }
 
         .copy-button:hover {
             background-color: #0056b3;
         }
 
-        pre {
+        .code-container {
+            position: relative;
             background-color: #333;
             color: #f8f8f2;
             padding: 15px;
@@ -71,6 +81,7 @@
             font-size: 14px;
             white-space: pre-wrap;
             word-wrap: break-word;
+            margin-top: 20px;
         }
 
         @media (max-width: 768px) {
@@ -84,6 +95,11 @@
                 width: 100%;
                 margin: 10px 0;
             }
+
+            .copy-button {
+                top: 5px;
+                right: 5px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -96,7 +112,7 @@
                 height: 120px;
             }
 
-            pre {
+            .code-container {
                 font-size: 12px;
                 padding: 8px;
             }
@@ -111,8 +127,11 @@
             <button onclick="validateJSON()">Validate</button>
             <button onclick="beautifyJSON()">Beautify</button>
             <div id="output"></div>
-            <pre id="beautifiedOutput"></pre>
-            <button class="copy-button" onclick="copyToClipboard()">Copy Beautified JSON</button>
+
+            <div class="code-container">
+                <button class="copy-button" onclick="copyToClipboard()">Copy Code</button>
+                <pre id="beautifiedOutput"></pre>
+            </div>
         </div>
     </div>
 
