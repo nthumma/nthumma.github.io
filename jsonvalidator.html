@@ -117,6 +117,32 @@
             color: #e0e0e0;
         }
 
+        /* Positioning the dark mode toggle button */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dark-mode-toggle:hover {
+            background-color: #0056b3;
+        }
+
+        .dark-mode .dark-mode-toggle {
+            background-color: #0056b3;
+        }
+
+        .dark-mode .dark-mode-toggle:hover {
+            background-color: #003d7a;
+        }
+
         @media (max-width: 768px) {
             textarea {
                 width: 90%;
@@ -165,11 +191,11 @@
                 <button class="copy-button" onclick="copyToClipboard()">Copy Code</button>
                 <pre id="beautifiedOutput"></pre>
             </div>
-
-            <!-- Dark Mode Toggle Button -->
-            <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
         </div>
     </div>
+
+    <!-- Dark Mode Toggle Button -->
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
     <script>
         // Function to validate JSON
