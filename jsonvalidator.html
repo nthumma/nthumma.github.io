@@ -28,7 +28,7 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            margin-bottom: 20px; /* Space between textarea and buttons */
+            margin-bottom: 20px;
             display: block;
             font-size: 16px;
             font-family: 'Courier New', Courier, monospace;
@@ -41,7 +41,7 @@
         button {
             padding: 10px 20px;
             margin-right: 10px;
-            margin-bottom: 10px; /* Optional spacing under the buttons */
+            margin-bottom: 10px;
             border: none;
             background-color: #28a745;
             color: white;
@@ -52,6 +52,14 @@
 
         button:hover {
             background-color: #218838;
+        }
+
+        .copy-button {
+            background-color: #007bff;
+        }
+
+        .copy-button:hover {
+            background-color: #0056b3;
         }
 
         pre {
@@ -73,7 +81,7 @@
             }
 
             button {
-                width: 100%; /* Stack buttons on small screens */
+                width: 100%;
                 margin: 10px 0;
             }
         }
@@ -104,11 +112,12 @@
             <button onclick="beautifyJSON()">Beautify</button>
             <div id="output"></div>
             <pre id="beautifiedOutput"></pre>
+            <button class="copy-button" onclick="copyToClipboard()">Copy Beautified JSON</button>
         </div>
     </div>
 
     <script>
-        // JavaScript functions to validate and beautify JSON
+        // Function to validate JSON
         function validateJSON() {
             const jsonInput = document.getElementById("jsonInput").value;
             const output = document.getElementById("output");
@@ -122,6 +131,7 @@
             }
         }
 
+        // Function to beautify JSON
         function beautifyJSON() {
             const jsonInput = document.getElementById("jsonInput").value;
             const beautifiedOutput = document.getElementById("beautifiedOutput");
@@ -131,6 +141,29 @@
             } catch (e) {
                 beautifiedOutput.textContent = "Invalid JSON, cannot beautify.";
             }
+        }
+
+        // Function to copy beautified JSON to clipboard
+        function copyToClipboard() {
+            const beautifiedOutput = document.getElementById("beautifiedOutput").textContent;
+            if (!beautifiedOutput) {
+                alert("There is no beautified JSON to copy!");
+                return;
+            }
+            
+            // Create a temporary textarea to hold the JSON for copying
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = beautifiedOutput;
+            document.body.appendChild(tempTextArea);
+
+            // Select the content and copy to clipboard
+            tempTextArea.select();
+            document.execCommand("copy");
+
+            // Remove the temporary textarea
+            document.body.removeChild(tempTextArea);
+
+            alert("Beautified JSON copied to clipboard!");
         }
     </script>
 </body>
