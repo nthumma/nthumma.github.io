@@ -169,7 +169,9 @@
                 alert("There is no beautified JSON to copy!");
                 return;
             }
-            
+
+            const copyButton = document.querySelector('.copy-button');
+
             // Create a temporary textarea to hold the JSON for copying
             const tempTextArea = document.createElement("textarea");
             tempTextArea.value = beautifiedOutput;
@@ -182,7 +184,11 @@
             // Remove the temporary textarea
             document.body.removeChild(tempTextArea);
 
-            alert("Beautified JSON copied to clipboard!");
+            // Change button text to "Copied!" for 2 seconds, then revert to "Copy Code"
+            copyButton.textContent = "Copied!";
+            setTimeout(() => {
+                copyButton.textContent = "Copy Code";
+            }, 2000);
         }
     </script>
 </body>
