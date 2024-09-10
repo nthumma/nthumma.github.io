@@ -5,9 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Developer Tools 101</title>
     <style>
-     body {
+        body {
             font-family: Arial, sans-serif;
             margin: 20px;
+        }
+        .links {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         a {
             display: block;
@@ -32,12 +40,37 @@
         a:visited {
             color: #666;
         }
+        .filter {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
     <h1>Developer Tools 101</h1>
+    <input type="search" id="filter" class="filter" placeholder="Search links...">
     <div class="links">
-        <a target="_blank" href="https://nthumma.github.io/jsonvalidator.html">JSON Validator & Beautifier</a>
+        <a href="#link-1">Link 1</a>
+        <!-- Add more links here -->
     </div>
+
+    <script>
+        const filterInput = document.getElementById('filter');
+        const links = document.querySelectorAll('.links a');
+
+        filterInput.addEventListener('input', () => {
+            const filterValue = filterInput.value.toLowerCase();
+            links.forEach((link) => {
+                const linkText = link.textContent.toLowerCase();
+                if (linkText.includes(filterValue)) {
+                    link.style.display = 'block';
+                } else {
+                    link.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
