@@ -162,6 +162,20 @@
             background-color: var(--button-hover-dark);
         }
 
+        /* Syntax highlighting */
+        .tag {
+            color: #22863a; /* Green for tags */
+        }
+
+        .attribute {
+            color: #6f42c1; /* Purple for attributes */
+        }
+
+        .value {
+            color: #032f62; /* Blue for values */
+        }
+
+        /* Responsive styles */
         @media (max-width: 600px) {
             textarea, pre {
                 height: 150px;
@@ -223,7 +237,7 @@
                     // Format and beautify XML
                     const serializer = new XMLSerializer();
                     const beautifiedXML = formatXML(serializer.serializeToString(xmlDoc));
-                    output.textContent = beautifiedXML;
+                    output.innerHTML = highlightXML(beautifiedXML); // Add syntax highlighting
                     output.classList.remove('error');
                     output.classList.add('success');
                     copyButton.style.display = 'inline-block'; // Show copy button if XML is valid
@@ -267,26 +281,47 @@
             return formatted.trim();
         }
 
-        // Function to copy the beautified XML to the clipboard
+        // Function to add syntax highlighting to XML
+        function highlightXML(xml) {
+            return xml
+                .replace(/(&lt;\/?)(\w+)(.*?&gt;)/g, (match, openTag, tagName, rest) => {
+                    return `<span class="tag">${openTag}${tagName}</span>${highlightAttributes(rest)}`;
+                });
+        }
+
+        // Function to highlight attributes inside XML tags
+        function highlightAttributes(attributes) {
+            return attributes.replace(
+                /(\w+)=("[^"]*")/g,
+                (match, attrName, attrValue) => {
+                    return `<span class="attribute">${attrName}</span>=<span class="value">${attrValue}</span>`;
+                }
+            );
+        }
+
+        // Copy XML to clipboard
         function copyToClipboard() {
             const output = document.getElementById('output');
             const copyButton = document.getElementById('copyButton');
 
-            // Create a temporary textarea to hold the XML text
-            const tempTextArea = document.createElement('textarea');
-            tempTextArea.value = output.textContent;
-            document.body.appendChild(tempTextArea);
-            tempTextArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempTextArea);
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(output);
+            selection.removeAllRanges();
+            selection.addRange(range);
 
-            // Change the button text to "Copied!"
-            copyButton.textContent = 'Copied!';
-            
-            // Revert the text after a short delay
+            try {
+                document.execCommand('copy');
+                copyButton.textContent = 'Copied!';
+            } catch (err) {
+                alert('Failed to copy.');
+            }
+
             setTimeout(() => {
                 copyButton.textContent = 'Copy XML';
             }, 2000);
+
+            selection.removeAllRanges();
         }
     </script>
 </body>
