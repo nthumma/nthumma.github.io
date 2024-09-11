@@ -74,6 +74,11 @@
             background-color: var(--button-hover-light);
         }
 
+        .output-wrapper {
+            position: relative;
+            margin-top: 20px;
+        }
+
         pre {
             text-align: left;
             padding: 10px;
@@ -83,7 +88,6 @@
             white-space: pre-wrap;
             word-wrap: break-word;
             font-family: monospace;
-            margin-top: 20px;
             height: 200px;
             overflow-y: auto;
             transition: background-color 0.3s, border-color 0.3s;
@@ -95,6 +99,24 @@
 
         .success {
             color: green;
+        }
+
+        #copyButton {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background-color: var(--button-light);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        #copyButton:hover {
+            background-color: var(--button-hover-light);
         }
 
         #darkModeToggle {
@@ -148,6 +170,10 @@
             button {
                 font-size: 14px;
             }
+
+            #copyButton {
+                font-size: 10px;
+            }
         }
     </style>
 </head>
@@ -157,9 +183,11 @@
         <textarea id="xmlInput" placeholder="Paste your XML code here..."></textarea>
         <br>
         <button onclick="validateAndBeautifyXML()">Validate & Beautify XML</button>
-        <button id="copyButton" style="display:none;" onclick="copyToClipboard()">Copy XML</button>
         <br>
-        <pre id="output"></pre>
+        <div class="output-wrapper">
+            <pre id="output"></pre>
+            <button id="copyButton" style="display:none;" onclick="copyToClipboard()">Copy XML</button>
+        </div>
     </div>
 
     <button id="darkModeToggle">Toggle Dark Mode</button>
