@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML Validator & Beautifier</title>
+    <style>
+        :root {
+            --background-light: #f4f4f9;
+            --background-dark: #2c2c2c;
+            --text-light: #000000;
+            --text-dark: #f5f5f5;
+            --button-light: #007bff;
+            --button-dark: #339af0;
+            --button-hover-light: #0056b3;
+            --button-hover-dark: #58a6ff;
+            --input-bg-light: #fff;
+            --input-bg-dark: #1e1e1e;
+            --input-border-light: #ccc;
+            --input-border-dark: #444;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            text-align: center;
+            background-color: var(--background-light);
+            color: var(--text-light);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--background-light);
+            border: 1px solid var(--input-border-light);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: var(--input-bg-light);
+            border: 1px solid var(--input-border-light);
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+            color: var(--text-light);
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: var(--button-light);
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: var(--button-hover-light);
+        }
+
+        pre {
+            text-align: left;
+            padding: 10px;
+            background-color: var(--input-bg-light);
+            border: 1px solid var(--input-border-light);
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: monospace;
+            margin-top: 20px;
+            height: 200px;
+            overflow-y: auto;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .success {
+            color: green;
+        }
+
+        #darkModeToggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: var(--button-dark);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        #darkModeToggle:hover {
+            background-color: var(--button-hover-dark);
+        }
+
+        /* Dark mode styles */
+        body.dark {
+            background-color: var(--background-dark);
+            color: var(--text-dark);
+        }
+
+        body.dark .container {
+            background-color: var(--background-dark);
+            border-color: var(--input-border-dark);
+        }
+
+        body.dark textarea,
+        body.dark pre {
+            background-color: var(--input-bg-dark);
+            color: var(--text-dark);
+            border-color: var(--input-border-dark);
+        }
+
+        body.dark button {
+            background-color: var(--button-dark);
+        }
+
+        body.dark button:hover {
+            background-color: var(--button-hover-dark);
+        }
+
+        @media (max-width: 600px) {
+            textarea, pre {
+                height: 150px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>XML Validator & Beautifier</h1>
+    <div class="container">
+        <textarea id="xmlInput" placeholder="Paste your XML code here..."></textarea>
+        <br>
+        <button onclick="validateAndBeautifyXML()">Validate & Beautify XML</button>
+        <button id="copyButton" style="display:none;" onclick="copyToClipboard()">Copy XML</button>
+        <br>
+        <pre id="output"></pre>
+    </div>
+
+    <button id="darkModeToggle">Toggle Dark Mode</button>
+
+    <script>
+        // Dark mode toggle functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark');
+        });
+
+        // Function to validate and beautify XML
+        function validateAndBeautifyXML() {
+            const xmlInput = document.getElementById('xmlInput').value;
+            const output = document.getElementById('output');
+            const copyButton = document.getElementById('copyButton');
+
+            try {
+                // Parse the XML string
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlInput, 'text/xml');
+                const errorNode = xmlDoc.querySelector('parsererror');
+
+                if (errorNode) {
+                    // Display error if XML is invalid
+                    output.textContent = 'Error: Invalid XML. ' + errorNode.textContent;
+                    output.classList.remove('success');
+                    output.classList.add('error');
+                    copyButton.style.display = 'none'; // Hide copy button if there's an error
+                } else {
+                    // Format and beautify XML
+                    const serializer = new XMLSerializer();
+                    const beautifiedXML = formatXML(serializer.serializeToString(xmlDoc));
+                    output.textContent = beautifiedXML;
+                    output.classList.remove('error');
+                    output.classList.add('success');
+                    copyButton.style.display = 'inline-block'; // Show copy button if XML is valid
+                }
+            } catch (err) {
+                // Catch any other errors
+                output.textContent = 'Error: ' + err.message;
+                output.classList.remove('success');
+                output.classList.add('error');
+                copyButton.style.display = 'none'; // Hide copy button if there's an error
+            }
+        }
+
+        // Function to format XML with proper indentation
+        function formatXML(xml) {
+            const PADDING = '  '; // Defines the indentation
+            const reg = /(>)(<)(\/*)/g;
+            let formatted = '';
+            let pad = 0;
+
+            // Replace > < with > \n <
+            xml = xml.replace(reg, '$1\r\n$2');
+            xml.split('\r\n').forEach((node) => {
+                let indent = 0;
+                if (node.match(/.+<\/\w[^>]*>$/)) {
+                    indent = 0;
+                } else if (node.match(/^<\/\w/)) {
+                    if (pad !== 0) {
+                        pad -= 1;
+                    }
+                } else if (node.match(/^<\w[^>]*[^\/]>.*$/)) {
+                    indent = 1;
+                } else {
+                    indent = 0;
+                }
+
+                formatted += PADDING.repeat(pad) + node + '\r\n';
+                pad += indent;
+            });
+
+            return formatted.trim();
+        }
+
+        // Function to copy the beautified XML to the clipboard
+        function copyToClipboard() {
+            const output = document.getElementById('output');
+            const copyButton = document.getElementById('copyButton');
+
+            // Create a temporary textarea to hold the XML text
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = output.textContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            // Change the button text to "Copied!"
+            copyButton.textContent = 'Copied!';
+            
+            // Revert the text after a short delay
+            setTimeout(() => {
+                copyButton.textContent = 'Copy XML';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
