@@ -237,7 +237,7 @@
                     // Format and beautify XML
                     const serializer = new XMLSerializer();
                     const beautifiedXML = formatXML(serializer.serializeToString(xmlDoc));
-                    output.innerHTML = highlightXML(beautifiedXML); // Add syntax highlighting
+                    output.innerHTML = highlightXML(escapeHTML(beautifiedXML)); // Add syntax highlighting
                     output.classList.remove('error');
                     output.classList.add('success');
                     copyButton.style.display = 'inline-block'; // Show copy button if XML is valid
@@ -278,50 +278,37 @@
                 pad += indent;
             });
 
-            return formatted.trim();
+            return formatted;
+        }
+
+        // Function to escape HTML characters
+        function escapeHTML(str) {
+            return str.replace(/&/g, '&amp;')
+                      .replace(/</g, '&lt;')
+                      .replace(/>/g, '&gt;')
+                      .replace(/"/g, '&quot;')
+                      .replace(/'/g, '&#039;');
         }
 
         // Function to add syntax highlighting to XML
         function highlightXML(xml) {
-            return xml
-                .replace(/(&lt;\/?)(\w+)(.*?&gt;)/g, (match, openTag, tagName, rest) => {
-                    return `<span class="tag">${openTag}${tagName}</span>${highlightAttributes(rest)}`;
-                });
+            return xml.replace(/(&lt;\/?)(\w+)(.*?&gt;)/g, (match, p1, p2, p3) => {
+                return `${p1}<span class="tag">${p2}</span><span class="attribute">${p3.replace(/(\w+)=(".*?")/g, (m, a, v) => {
+                    return `<span class="attribute">${a}</span>=<span class="value">${v}</span>`;
+                })}</span>`;
+            });
         }
 
-        // Function to highlight attributes inside XML tags
-        function highlightAttributes(attributes) {
-            return attributes.replace(
-                /(\w+)=("[^"]*")/g,
-                (match, attrName, attrValue) => {
-                    return `<span class="attribute">${attrName}</span>=<span class="value">${attrValue}</span>`;
-                }
-            );
-        }
-
-        // Copy XML to clipboard
+        // Function to copy the formatted XML to clipboard
         function copyToClipboard() {
-            const output = document.getElementById('output');
-            const copyButton = document.getElementById('copyButton');
-
-            const selection = window.getSelection();
-            const range = document.createRange();
-            range.selectNodeContents(output);
-            selection.removeAllRanges();
-            selection.addRange(range);
-
-            try {
-                document.execCommand('copy');
-                copyButton.textContent = 'Copied!';
-            } catch (err) {
-                alert('Failed to copy.');
-            }
-
-            setTimeout(() => {
-                copyButton.textContent = 'Copy XML';
-            }, 2000);
-
-            selection.removeAllRanges();
+            const output = document.getElementById('output').innerText;
+            const textarea = document.createElement('textarea');
+            textarea.value = output;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('XML copied to clipboard!');
         }
     </script>
 </body>
