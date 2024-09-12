@@ -300,16 +300,27 @@
         }
 
         // Function to copy the formatted XML to clipboard
-        function copyToClipboard() {
-            const output = document.getElementById('output').innerText;
-            const textarea = document.createElement('textarea');
-            textarea.value = output;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            alert('XML copied to clipboard!');
-        }
+       function copyToClipboard() {
+    const output = document.getElementById('output').innerText;
+    const textarea = document.createElement('textarea');
+    textarea.value = output;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+
+    const copyButton = document.getElementById('copyButton');
+    const originalText = copyButton.textContent;
+
+    // Change button text to "Copied"
+    copyButton.textContent = 'Copied';
+
+    // Reset to original text after 2 seconds
+    setTimeout(() => {
+        copyButton.textContent = originalText;
+    }, 2000);
+}
+
     </script>
 </body>
 </html>
