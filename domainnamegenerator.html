@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Name Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .results div {
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Domain Name Generator</h1>
+
+    <div class="form-container">
+        <input type="text" id="keywords" placeholder="Enter keywords..." />
+        <button onclick="generateDomainNames()">Generate Domain Names</button>
+    </div>
+
+    <div class="results" id="results"></div>
+
+    <script>
+        function generateDomainNames() {
+            const keywords = document.getElementById('keywords').value.trim().split(' ');
+            const tlds = ['.com', '.net', '.io', '.co'];
+            const prefixes = ['get', 'my', 'go'];
+            const suffixes = ['ly', 'hub', 'app'];
+
+            let results = [];
+            
+            keywords.forEach(keyword => {
+                tlds.forEach(tld => {
+                    results.push(keyword + tld);
+                    prefixes.forEach(prefix => {
+                        results.push(prefix + keyword + tld);
+                    });
+                    suffixes.forEach(suffix => {
+                        results.push(keyword + suffix + tld);
+                    });
+                });
+            });
+
+            displayResults(results);
+        }
+
+        function displayResults(results) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = ''; // Clear previous results
+
+            results.forEach(result => {
+                const div = document.createElement('div');
+                div.textContent = result;
+                div.onclick = () => copyToClipboard(result);
+                resultsDiv.appendChild(div);
+            });
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text);
+            alert('Copied to clipboard: ' + text);
+        }
+    </script>
+
+</body>
+</html>
