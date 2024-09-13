@@ -3,196 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Developer Tools 101</title>
+    <meta name="description" content="Developer Tools 101 provides free developer tools like JSON Validator, XML Beautifier, and Color Picker for programmers and web developers to improve their workflow.">
+    <meta name="keywords" content="Developer tools, JSON Validator, XML Beautifier, Color Picker, free online tools for developers">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Developer Tools 101 - JSON Validator, Color Picker, XML Beautifier & More">
+    <meta property="og:description" content="Access essential developer tools like JSON Validator, Color Picker, and XML Beautifier. All free and easy to use.">
+    <meta property="og:image" content="https://example.com/logo.png">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Developer Tools 101 - JSON Validator, Color Picker, XML Beautifier & More">
+    <meta name="twitter:description" content="A collection of essential developer tools like JSON Validator, XML Beautifier, and Color Picker.">
+    <meta name="twitter:image" content="https://example.com/logo.png">
+    <link rel="canonical" href="https://yourwebsite.com/">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <title>Developer Tools 101 - JSON Validator, Color Picker, XML Beautifier & More</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .dark-mode body {
-            background-color: #121212;
-            color: #e0e0e0;
-        }
-
-        h1 {
-            text-align: center;
-            margin: 20px 0;
-            font-size: 2rem;
-        }
-
-        .links {
-            max-width: 800px;
-            margin: 40px auto; /* Added top margin for spacing */
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-
-        .dark-mode .links {
-            background-color: #2c2c2c;
-            border-color: #444;
-        }
-
-        a {
-            display: block;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-            text-decoration: none;
-            color: #337ab7;
-            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-        }
-
-        .dark-mode a {
-            color: #9d9d9d;
-        }
-
-        a:hover {
-            background-color: #f0f0f0;
-            color: #23527c;
-        }
-
-        .dark-mode a:hover {
-            background-color: #3a3a3a;
-            color: #e0e0e0;
-        }
-
-        .filter {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: calc(100% - 40px);
-            max-width: 800px;
-            margin: 0 auto 20px;
-            box-sizing: border-box;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-
-        .dark-mode .filter {
-            border-color: #444;
-            background-color: #2c2c2c;
-            color: #e0e0e0;
-        }
-
-        .dark-mode .filter:focus {
-            border-color: #007bff;
-        }
-
-        .dark-mode-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            z-index: 1000;
-        }
-
-        .dark-mode-toggle:hover {
-            background-color: #0056b3;
-        }
-
-        .dark-mode .dark-mode-toggle {
-            background-color: #0056b3;
-        }
-
-        .dark-mode .dark-mode-toggle:hover {
-            background-color: #003d7a;
-        }
-
-        .header, .footer {
-            background-color: #007bff;
-            color: white;
-            padding: 15px 0;
-            text-align: center;
-        }
-
-        .footer {
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-
-        @media (max-width: 768px) {
-            .links {
-                padding: 15px;
-            }
-
-            .filter {
-                font-size: 14px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .links {
-                padding: 10px;
-            }
-
-            .filter {
-                font-size: 12px;
-            }
-        }
+        /* Your CSS here */
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- Your HTML content -->
     <header class="header">
-        <h1>Welcome to Developer Tools 101</h1>
+        <h1>Developer Tools 101</h1>
     </header>
 
-    <!-- Main Content -->
     <div class="links">
-        <input type="search" id="filter" class="filter" placeholder="Search links...">
-        <a target="_blank" href="https://nthumma.github.io/jsonvalidator.html">JSON Validator & Beautifier</a>
-        <a target="_blank" href="https://nthumma.github.io/colorpicker.html">Color Picker</a>
-        <a target="_blank" href="https://nthumma.github.io/xmlvalidator.html">XML Validator & Beautifier</a>
-        <!-- Add more links here -->
+        <!-- Links to your developer tools -->
     </div>
 
-    <!-- Dark Mode Toggle Button -->
-    <button class="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-
-    <!-- Footer -->
     <footer class="footer">
-        <p>Mostly built using AI.</p>
+        <p>© 2024 Developer Tools 101 | All rights reserved.</p>
     </footer>
-
+    
     <script>
-        // Function to filter links
-        const filterInput = document.getElementById('filter');
-        const links = document.querySelectorAll('.links a');
-
-        filterInput.addEventListener('input', () => {
-            const filterValue = filterInput.value.toLowerCase();
-            links.forEach((link) => {
-                const linkText = link.textContent.toLowerCase();
-                if (linkText.includes(filterValue)) {
-                    link.style.display = 'block';
-                } else {
-                    link.style.display = 'none';
-                }
-            });
-        });
-
-        // Function to toggle dark mode
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-        }
+        // Your JavaScript content
+    </script>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Developer Tools 101",
+      "url": "https://yourwebsite.com",
+      "description": "A collection of essential developer tools like JSON Validator, XML Beautifier, and Color Picker.",
+      "author": {
+        "@type": "Organization",
+        "name": "Developer Tools 101"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://yourwebsite.com/?q={search_term}",
+        "query-input": "required name=search_term"
+      }
+    }
     </script>
 </body>
 </html>
