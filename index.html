@@ -63,25 +63,6 @@
             color: #e0e0e0;
         }
 
-        a:active {
-            background-color: #e5e5e5;
-            color: #23527c;
-        }
-
-        .dark-mode a:active {
-            background-color: #4a4a4a;
-            color: #e0e0e0;
-        }
-
-        a:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px #337ab7;
-        }
-
-        .dark-mode a:focus {
-            box-shadow: 0 0 0 2px #e0e0e0;
-        }
-
         .filter {
             padding: 10px;
             border: 1px solid #ccc;
@@ -130,6 +111,19 @@
             background-color: #003d7a;
         }
 
+        .header, .footer {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .footer {
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
         @media (max-width: 768px) {
             .links {
                 padding: 15px;
@@ -156,18 +150,27 @@
     </style>
 </head>
 <body>
-    <h1>Developer Tools 101</h1>
-    
+    <!-- Header -->
+    <header class="header">
+        <h1>Welcome to Developer Tools 101</h1>
+    </header>
 
+    <!-- Main Content -->
     <div class="links">
         <input type="search" id="filter" class="filter" placeholder="Search links...">
         <a target="_blank" href="https://nthumma.github.io/jsonvalidator.html">JSON Validator & Beautifier</a>
-         <a target="_blank" href="https://nthumma.github.io/colorpicker.html">Color Picker</a>
+        <a target="_blank" href="https://nthumma.github.io/colorpicker.html">Color Picker</a>
         <a target="_blank" href="https://nthumma.github.io/xmlvalidator.html">XML Validator & Beautifier</a>
         <!-- Add more links here -->
     </div>
 
+    <!-- Dark Mode Toggle Button -->
     <button class="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2024 Developer Tools 101 | All rights reserved.</p>
+    </footer>
 
     <script>
         // Function to filter links
